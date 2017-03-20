@@ -49,8 +49,11 @@
     <Compile Include="Behavioral patterns\Strategy\ICalculate.cs" />
     <Compile Include="Behavioral patterns\Strategy\Minus.cs" />
     <Compile Include="Behavioral patterns\Strategy\Plus.cs" />
+    <Compile Include="Behavioral patterns\Template method\TemplateMethod.cs" />
     <Compile Include="Creational patterns\Abstract factory\AbstractFactory.cs" />
+    <Compile Include="Creational patterns\Builder\Builder.cs" />
     <Compile Include="Creational patterns\Factory method\Factory.cs" />
+    <Compile Include="Creational patterns\Prototype\Prototype.cs" />
     <Compile Include="Creational patterns\Singleton\Singleton.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

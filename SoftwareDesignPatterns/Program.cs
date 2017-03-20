@@ -1,8 +1,11 @@
 ﻿using SoftwareDesignPatterns.Behavioral_patterns.Iterator;
 using SoftwareDesignPatterns.Behavioral_patterns.Observer;
 using SoftwareDesignPatterns.Behavioral_patterns.Strategy;
+using SoftwareDesignPatterns.Behavioral_patterns.Template_method;
 using SoftwareDesignPatterns.Creational_patterns.Abstract_factory;
+using SoftwareDesignPatterns.Creational_patterns.Builder;
 using SoftwareDesignPatterns.Creational_patterns.Factory_method;
+using SoftwareDesignPatterns.Creational_patterns.Prototype;
 using SoftwareDesignPatterns.Creational_patterns.Singleton;
 using SoftwareDesignPatterns.Structural_patterns.Adapter;
 using SoftwareDesignPatterns.Structural_patterns.Composite;
@@ -211,6 +214,56 @@ namespace SoftwareDesignPatterns
             broker.StopTrade();
             // Imitation of trades
             stock.Market();
+
+            Console.ReadLine();
+            #endregion
+
+            #region Template method
+            /*
+            Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. 
+            Template method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure.
+            */
+            School school = new School();
+            University university = new University();
+
+            school.Learn();
+            university.Learn();
+
+            Console.ReadLine();
+            #endregion
+
+            #region Prototype
+            /*
+            Specify the kinds of objects to create using a prototypical instance, and create new objects from the 'skeleton' of an existing object, thus boosting performance and keeping memory footprints to a minimum.
+            */
+            IFigure figure = new Rectangle(30, 40);
+            IFigure clonedFigure = figure.Clone();
+            figure.GetInfo();
+            clonedFigure.GetInfo();
+
+            figure = new Circle(30);
+            clonedFigure = figure.Clone();
+            figure.GetInfo();
+            clonedFigure.GetInfo();
+
+            Console.ReadLine();
+            #endregion
+
+            #region Builder
+            /*
+            Separate the construction of a complex object from its representation, allowing the same construction process to create various representations.
+            */
+            // Create a baker's object
+            Baker baker = new Baker();
+            // Create a burger for rye bread
+            BreadBuilder builder = new RyeBreadBuilder();
+            // Bake
+            Bread ryeBread = baker.Bake(builder);
+            Console.WriteLine(ryeBread.ToString());
+            // Create a breadbreader
+            builder = new WheatBreadBuilder();
+            Bread wheatBread = baker.Bake(builder);
+            Console.WriteLine(wheatBread.ToString());
 
             Console.ReadLine();
             #endregion
