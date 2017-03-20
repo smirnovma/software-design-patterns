@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behavioral patterns\Command\Command.cs" />
     <Compile Include="Behavioral patterns\Iterator\Iterator.cs" />
     <Compile Include="Behavioral patterns\Observer\Observer.cs" />
+    <Compile Include="Behavioral patterns\State\State.cs" />
     <Compile Include="Behavioral patterns\Strategy\CalculateClient.cs" />
     <Compile Include="Behavioral patterns\Strategy\ICalculate.cs" />
     <Compile Include="Behavioral patterns\Strategy\Minus.cs" />
