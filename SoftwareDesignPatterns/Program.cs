@@ -13,6 +13,8 @@ using SoftwareDesignPatterns.Structural_patterns.Adapter;
 using SoftwareDesignPatterns.Structural_patterns.Composite;
 using SoftwareDesignPatterns.Structural_patterns.Decorator;
 using SoftwareDesignPatterns.Structural_patterns.Facade;
+using SoftwareDesignPatterns.Structural_patterns.Flyweight;
+using SoftwareDesignPatterns.Structural_patterns.Proxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -158,7 +160,7 @@ Select a pattern: ");
                          The enterprise integration pattern equivalent is the translator.
                          */
                         // traveler
-                        Driver driver = new Driver();
+                        Structural_patterns.Adapter.Driver driver = new Structural_patterns.Adapter.Driver();
                         // Car
                         Auto auto = new Auto();
                         // Go on a trip
@@ -230,19 +232,19 @@ Select a pattern: ");
                         */
                         Pizza pizza1 = new ItalianPizza();
                         pizza1 = new TomatoPizza(pizza1); // Italian pizza with tomatoes
-                        Console.WriteLine("Название: {0}", pizza1.Name);
-                        Console.WriteLine("Цена: {0}", pizza1.GetCost());
+                        Console.WriteLine("Name: {0}", pizza1.Name);
+                        Console.WriteLine("Price: {0}", pizza1.GetCost());
 
                         Pizza pizza2 = new ItalianPizza();
                         pizza2 = new CheesePizza(pizza2);// Italian pizza with cheese
-                        Console.WriteLine("Название: {0}", pizza2.Name);
-                        Console.WriteLine("Цена: {0}", pizza2.GetCost());
+                        Console.WriteLine("Name: {0}", pizza2.Name);
+                        Console.WriteLine("Price: {0}", pizza2.GetCost());
 
                         Pizza pizza3 = new BulgerianPizza();
                         pizza3 = new TomatoPizza(pizza3);
                         pizza3 = new CheesePizza(pizza3);// Bulgarian pizza with tomatoes and cheese
-                        Console.WriteLine("Название: {0}", pizza3.Name);
-                        Console.WriteLine("Цена: {0}", pizza3.GetCost());
+                        Console.WriteLine("Name: {0}", pizza3.Name);
+                        Console.WriteLine("Price: {0}", pizza3.GetCost());
                         Console.ReadLine();
                         #endregion
                         break;
@@ -265,10 +267,46 @@ Select a pattern: ");
                         #endregion
                         break;
                     case 11:
+                        #region Flyweight
+                        /*
+                        Use sharing to support large numbers of similar objects efficiently.
+                        */
+                        double longitude = 37.61;
+                        double latitude = 55.74;
 
+                        HouseFactory houseFactory = new HouseFactory();
+                        for (int i = 0; i < 5; i++)
+                        {
+                            House panelHouse = houseFactory.GetHouse("Panel");
+                            if (panelHouse != null)
+                                panelHouse.Build(longitude, latitude);
+                            longitude += 0.1;
+                            latitude += 0.1;
+                        }
+
+                        for (int i = 0; i < 5; i++)
+                        {
+                            House brickHouse = houseFactory.GetHouse("Brick");
+                            if (brickHouse != null)
+                                brickHouse.Build(longitude, latitude);
+                            longitude += 0.1;
+                            latitude += 0.1;
+                        }
+
+                        Console.ReadLine();
+                        #endregion
                         break;
                     case 12:
+                        #region Proxy
+                        /*
+                        Provide a surrogate or placeholder for another object to control access to it.
+                        */
+                        ICar car = new ProxyCar(new Structural_patterns.Proxy.Driver(16));
+                        car.DriveCar();
 
+                        car = new ProxyCar(new Structural_patterns.Proxy.Driver(25));
+                        car.DriveCar();
+                        #endregion
                         break;
                     case 13:
 

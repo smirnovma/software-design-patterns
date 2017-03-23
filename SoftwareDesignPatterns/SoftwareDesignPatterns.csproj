@@ -64,6 +64,8 @@
     <Compile Include="Structural patterns\Composite\Composite.cs" />
     <Compile Include="Structural patterns\Decorator\Decorator.cs" />
     <Compile Include="Structural patterns\Facade\Facade.cs" />
+    <Compile Include="Structural patterns\Flyweight\Flyweight.cs" />
+    <Compile Include="Structural patterns\Proxy\Proxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
