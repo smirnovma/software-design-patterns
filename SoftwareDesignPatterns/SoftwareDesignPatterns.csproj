@@ -43,8 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behavioral patterns\Chain of responsibility\ChainOfResponsibility.cs" />
     <Compile Include="Behavioral patterns\Command\Command.cs" />
+    <Compile Include="Behavioral patterns\Interpreter\Interpreter.cs" />
     <Compile Include="Behavioral patterns\Iterator\Iterator.cs" />
+    <Compile Include="Behavioral patterns\Mediator\Mediator.cs" />
+    <Compile Include="Behavioral patterns\Memento\Memento.cs" />
     <Compile Include="Behavioral patterns\Observer\Observer.cs" />
     <Compile Include="Behavioral patterns\State\State.cs" />
     <Compile Include="Behavioral patterns\Strategy\CalculateClient.cs" />
@@ -52,6 +56,7 @@
     <Compile Include="Behavioral patterns\Strategy\Minus.cs" />
     <Compile Include="Behavioral patterns\Strategy\Plus.cs" />
     <Compile Include="Behavioral patterns\Template method\TemplateMethod.cs" />
+    <Compile Include="Behavioral patterns\Visitor\Visitor.cs" />
     <Compile Include="Creational patterns\Abstract factory\AbstractFactory.cs" />
     <Compile Include="Creational patterns\Builder\Builder.cs" />
     <Compile Include="Creational patterns\Factory method\Factory.cs" />

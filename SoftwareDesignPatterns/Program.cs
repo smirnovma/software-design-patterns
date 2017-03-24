@@ -1,9 +1,13 @@
 ﻿using SoftwareDesignPatterns.Behavioral_patterns.Command;
+using SoftwareDesignPatterns.Behavioral_patterns.Interpreter;
 using SoftwareDesignPatterns.Behavioral_patterns.Iterator;
+using SoftwareDesignPatterns.Behavioral_patterns.Mediator;
+using SoftwareDesignPatterns.Behavioral_patterns.Memento;
 using SoftwareDesignPatterns.Behavioral_patterns.Observer;
 using SoftwareDesignPatterns.Behavioral_patterns.State;
 using SoftwareDesignPatterns.Behavioral_patterns.Strategy;
 using SoftwareDesignPatterns.Behavioral_patterns.Template_method;
+using SoftwareDesignPatterns.Behavioral_patterns.Visitor;
 using SoftwareDesignPatterns.Creational_patterns.Abstract_factory;
 using SoftwareDesignPatterns.Creational_patterns.Builder;
 using SoftwareDesignPatterns.Creational_patterns.Factory_method;
@@ -17,10 +21,9 @@ using SoftwareDesignPatterns.Structural_patterns.Flyweight;
 using SoftwareDesignPatterns.Structural_patterns.Proxy;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using static SoftwareDesignPatterns.Behavioral_patterns.Chain_of_responsibility.ChainOfResponsibility;
 using static SoftwareDesignPatterns.Structural_patterns.Bridge.Bridge;
 
 namespace SoftwareDesignPatterns
@@ -138,7 +141,6 @@ Select a pattern: ");
                         Singleton obj1 = Singleton.getInstance();
                         Singleton obj2 = Singleton.getInstance();
                         Console.WriteLine("Singleton objects are identical: " + (obj1 == obj2 ? true : false));
-                        Console.ReadLine();
 
                         SingletonThreadSafe obj3 = null;
                         var task = Task.Run(
@@ -306,10 +308,27 @@ Select a pattern: ");
 
                         car = new ProxyCar(new Structural_patterns.Proxy.Driver(25));
                         car.DriveCar();
+                        Console.ReadLine();
                         #endregion
                         break;
                     case 13:
+                        #region Chain of responsibility
+                        /*
+                        Avoid coupling the sender of a request to its receiver by giving more than one object a chance to handle the request. 
+                        Chain the receiving objects and pass the request along the chain until an object handles it.
+                        */
+                        Receiver receiver = new Receiver(false, true, true);
 
+                        PaymentHandler bankPaymentHandler = new BankPaymentHandler();
+                        PaymentHandler moneyPaymentHnadler = new MoneyPaymentHandler();
+                        PaymentHandler paypalPaymentHandler = new PayPalPaymentHandler();
+                        bankPaymentHandler.Successor = paypalPaymentHandler;
+                        paypalPaymentHandler.Successor = moneyPaymentHnadler;
+
+                        bankPaymentHandler.Handle(receiver);
+
+                        Console.ReadLine();
+                        #endregion
                         break;
                     case 14:
                         #region Command
@@ -327,7 +346,28 @@ Select a pattern: ");
                         #endregion
                         break;
                     case 15:
+                        #region Interpreter
+                        /*
+                        Given a language, define a representation for its grammar along with an interpreter that uses the representation to interpret sentences in the language.
+                        */
+                        var context = new Context();
 
+                        // Usually a tree
+                        var list = new List<AbstractExpression>();
+
+                        // Populate 'abstract syntax tree'
+                        list.Add(new TerminalExpression());
+                        list.Add(new NonterminalExpression());
+                        list.Add(new TerminalExpression());
+                        list.Add(new TerminalExpression());
+
+                        // Interpret
+                        foreach (AbstractExpression exp in list)
+                        {
+                            exp.Interpret(context);
+                        }
+                        Console.ReadLine();
+                        #endregion
                         break;
                     case 16:
                         #region Iterator
@@ -341,10 +381,44 @@ Select a pattern: ");
                         #endregion
                         break;
                     case 17:
+                        #region Mediator
+                        /*
+                        Define an object that encapsulates how a set of objects interact. 
+                        Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it allows their interaction to vary independently.
+                        */
+                        ManagerMediator mediator = new ManagerMediator();
+                        Colleague customer = new CustomerColleague(mediator);
+                        Colleague programmerPerson = new ProgrammerColleague(mediator);
+                        Colleague tester = new TesterColleague(mediator);
+                        mediator.Customer = customer;
+                        mediator.Programmer = programmerPerson;
+                        mediator.Tester = tester;
+                        customer.Send("There is an order, you need to make a program");
+                        programmerPerson.Send("The program is ready, it is necessary to test");
+                        tester.Send("The program is tested and ready for sale");
 
+                        Console.ReadLine();
+                        #endregion
                         break;
                     case 18:
+                        #region Memento
+                        /*
+                        Without violating encapsulation, capture and externalize an object's internal state allowing the object to be restored to this state later.
+                        */
+                        Hero hero = new Hero();
+                        hero.Shoot(); // Make a shot, there are 9 cartridges left
+                        GameHistory game = new GameHistory();
 
+                        game.History.Push(hero.SaveState()); // save the game
+
+                        hero.Shoot(); //Make a shot, there are 8 rounds left
+
+                        hero.RestoreState(game.History.Pop());
+
+                        hero.Shoot(); //Make a shot, there are 8 rounds left
+
+                        Console.ReadLine();
+                        #endregion
                         break;
                     case 19:
                         #region Observer
@@ -408,12 +482,30 @@ Select a pattern: ");
                         #endregion
                         break;
                     case 23:
-
+                        #region Visitor
+                        /*
+                        Represent an operation to be performed on the elements of an object structure. 
+                        Visitor lets a new operation be defined without changing the classes of the elements on which it operates.
+                        */
+                        // emulate 1+2+3
+                        var e = new Addition(
+                          new Addition(
+                            new Literal(1),
+                            new Literal(2)
+                          ),
+                          new Literal(3)
+                        );
+                        var sb = new StringBuilder();
+                        var expressionPrinter = new ExpressionPrinter(sb);
+                        e.Accept(expressionPrinter);
+                        Console.WriteLine(sb);
+                        Console.ReadLine();
+                        #endregion
                         break;
                     default:
-                        Console.WriteLine("Incorrect value selected");
+                        Console.WriteLine("Incorrect value selected.");
+                        Console.ReadLine();
                         break;
-
                 }
             } while (variant != 0);
         }
